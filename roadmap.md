@@ -1,4 +1,4 @@
-# malinali (temp name)
+# nanana
 
 A crowdsourcing app to bring out African lyrics transcriptions and translations.
 
