@@ -76,3 +76,6 @@ Translation (
 - languages list for AI speech2text and for AI translation must be filtered to match this list
 - AI languages lists will probably not match this list, it would be better to grey-out the option
 
+
+// 2024_05_20 
+- le site web sera propulsé aussi par top shelf en html
