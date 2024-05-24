@@ -1,7 +1,6 @@
-import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:nanana_app/home_page.dart';
+import 'package:nanana_app/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +16,14 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        AppFlowyEditorLocalizations.delegate,
       ],
-      supportedLocales: AppFlowyEditorLocalizations.delegate.supportedLocales,
+      // supportedLocales: ,
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const HomeView(
+        song: 'Mandjou',
+        artist: 'Salif Keita',
+        language: 'Malinké',
+      ),
       theme: ThemeData.light(useMaterial3: true),
     );
   }

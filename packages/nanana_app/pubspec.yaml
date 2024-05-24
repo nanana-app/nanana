@@ -8,11 +8,13 @@ environment:
   sdk: '>=3.3.3 <4.0.0'
 
 dependencies:
-  appflowy_editor: ^2.4.0
+  re_editor: ^0.3.0
+  #flutter_quill: ^9.3.11 # heavy most dependencies not needed
+  #appflowy_editor: ^2.4.0 # most / functions are useless
   flutter:
     sdk: flutter
-
-  # https://github.com/appflowy-io/appflowy-editor
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -39,7 +41,6 @@ flutter:
 
   assets:
     - assets/
-    - assets/images/
 
   fonts:
     - family: Barokah
