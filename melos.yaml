@@ -16,12 +16,6 @@ command:
     # branch: master
     # Additionally build a changelog at the root of the workspace.
     workspaceChangelog: true
-    #changelog:
-    #  - path: weebi_changelog.md
-    #    packageFilters:
-    #      scope: weebi_*
-    #    description: |
-    #      All notable changes for firebase_ui packages
 
   bootstrap:
     # running "pub get" in parallel has some issues (like

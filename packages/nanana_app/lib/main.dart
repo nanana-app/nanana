@@ -1,30 +1,36 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:nanana_app/home.dart';
+import 'package:flutter/services.dart';
+import 'package:nanana_app/src/app/a_app_doc_dir.dart';
+import 'package:nanana_app/src/app/ze_stuff.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_logging/sentry_logging.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      // supportedLocales: ,
-      debugShowCheckedModeBanner: false,
-      home: const HomeView(
-        song: 'Mandjou',
-        artist: 'Salif Keita',
-        language: 'Malinké',
-      ),
-      theme: ThemeData.light(useMaterial3: true),
-    );
+void main() async {
+  if (Platform.isAndroid) {
+    ByteData data = await PlatformAssetBundle()
+        .load('assets/certificates/lets-encrypt-r3.pem');
+    SecurityContext.defaultContext
+        .setTrustedCertificatesBytes(data.buffer.asUint8List());
   }
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = ''; // TODO complete this with sentry dns
+      //options.tracesSampleRate = 1.0;
+      options.reportPackages = false;
+      options.addInAppInclude('nanana');
+      options.considerInAppFramesByDefault = false;
+      options.attachThreads = true;
+      options.enableWindowMetricBreadcrumbs = true;
+      options.addIntegration(LoggingIntegration());
+    },
+    appRunner: () => runApp(
+      const Directionality(
+        textDirection: TextDirection.ltr,
+        child: AppDocDirectory(Environment.normal),
+      ),
+    ),
+  );
 }

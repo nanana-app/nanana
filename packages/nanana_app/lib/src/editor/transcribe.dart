@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nanana_app/find_panel_view.dart';
+import 'package:nanana_app/src/editor/find_panel_view.dart';
+
 import 'package:re_editor/re_editor.dart';
 
-class HomeView extends StatefulWidget {
+class TranscribeView extends StatefulWidget {
   final String song;
   final String artist;
   final String language;
   final String album;
   final String videoUrl;
-  const HomeView(
+  const TranscribeView(
       {required this.song,
       required this.artist,
       required this.language,
@@ -17,10 +18,10 @@ class HomeView extends StatefulWidget {
       super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<TranscribeView> createState() => _TranscribeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _TranscribeViewState extends State<TranscribeView> {
   final CodeLineEditingController _controller = CodeLineEditingController();
   @override
   void initState() {

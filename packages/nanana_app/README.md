@@ -1,16 +1,26 @@
 # nanana_app
 
-A new Flutter project.
+TODO: test if webmp can be played on android using just_audio
+TODO: test if gemini pro can transcript songs phonetically  
 
-## Getting Started
+1st screen choose language ? 
+2nd screen signup/sign-in
 
-This project is a starting point for a Flutter application.
+contribute -
+browse my contributions - gridview + FloatingActionButton
+    -> add new contribution 
+        1. videoUrl
+        2. artist, song, language
+        3. transcript lyrics with ... menu with 
+           1. edit metadata
+           2. FloatingActionButton to publish ?
+           3. share
+           4. delete
 
-A few resources to get you started if this is your first Flutter project:
+explore - gridview
+    top songs
+    top artists
+    top languages
+    give +1 / love icon
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+webmp not read on mac (windows?) might need to use fmpeg...
