@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nanana_app/src/drawer.dart';
-import 'package:nanana_app/src/editor/transcribe.dart';
+import 'package:nanana_app/src/editor/transcription_view.dart';
+import 'package:nanana_app/src/models/transcription.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class TranscriptionsView extends StatelessWidget {
+  const TranscriptionsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +12,15 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(),
       drawer: const DrawerNanana(),
       body: GridView.count(
-        primary: false,
+        primary: true,
+        scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(20),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 2,
         children: <Widget>[
-          CardWidget(),
-          // CardWidget(),
-          // CardWidget(),
+          for (final notation in TranscriptionDummy.notations)
+            CardWidget(notation),
         ],
       ),
     );
@@ -27,7 +28,8 @@ class HomeView extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
-  const CardWidget({super.key});
+  final Transcription notation;
+  const CardWidget(this.notation, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +37,12 @@ class CardWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const TranscribeView(
-              song: 'Mandjou',
-              artist: 'Salif Keita',
-              language: 'Malinké',
-            ),
+            builder: (context) => TranscriptionView(notation: notation),
           ),
         );
       },
       child: Card(
-        margin: const EdgeInsets.only(
-          top: 5,
-          bottom: 5,
-        ),
+        margin: const EdgeInsets.only(top: 5, bottom: 5),
         elevation: 3.0,
         color: Colors.teal[100],
         child: Padding(
@@ -56,7 +51,7 @@ class CardWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text("Mandjou\nSalif Keita"),
+              Text("${notation.artist}\n${notation.song}"),
             ],
           ),
         ),

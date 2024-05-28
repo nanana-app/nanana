@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nanana_app/src/app/d_material_app.dart';
 import 'package:nanana_app/src/app/l10n.dart';
-import 'package:nanana_app/src/app/language_select.dart';
+import 'package:nanana_app/src/create_transcription.dart';
+import 'package:nanana_app/src/widgets/language_select.dart';
 import 'package:nanana_app/src/app/top_provider.dart';
-import 'package:nanana_app/src/editor/transcribe.dart';
+import 'package:nanana_app/src/editor/transcription_view.dart';
+import 'package:nanana_app/src/home.dart';
 import 'package:nanana_app/src/player/player.dart';
 import 'package:provider/provider.dart';
 
@@ -85,14 +87,11 @@ class DrawerNanana extends StatelessWidget {
                       ],
                     ),
                     DrawerTopTileWidget(
-                        const Icon(Icons.edit), Text('Transcribe'), () {
+                        const Icon(Icons.edit), Text('Nouvelle transcription'),
+                        () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const TranscribeView(
-                            song: 'Mandjou',
-                            artist: 'Salif Keita',
-                            language: 'Malinké',
-                          ),
+                          builder: (context) => const CreateTranscriptionView(),
                         ),
                       );
                     }),
@@ -127,9 +126,8 @@ class DrawerNanana extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => const LanguageSelectWidget(
-                            isFirstScreen: false,
-                          )),
+                    builder: (context) => const LanguageSelectWidget(),
+                  ),
                 );
               },
             )

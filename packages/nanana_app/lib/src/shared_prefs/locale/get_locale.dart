@@ -1,7 +1,8 @@
 // Dart imports:
-import 'dart:ui';
 
 // Package imports:
+
+import 'dart:ui';
 
 import 'package:nanana_app/src/shared_prefs/endpoint_base.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,7 @@ class LocaleGet implements EndpointBase<Locale, void> {
 
   @override
   Future<Locale> request(void _) async {
-    Locale locale = Locale('fr');
+    Locale locale = const Locale.fromSubtags(languageCode: 'en');
     final languageCode = sharedPrefs.getString('locale_languageCode');
 
     if (languageCode != null) {

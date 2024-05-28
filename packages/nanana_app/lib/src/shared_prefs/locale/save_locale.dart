@@ -1,7 +1,10 @@
 // Dart imports:
-import 'dart:ui';
+
 // Flutter imports:
+import 'dart:ui';
+
 import 'package:flutter/services.dart';
+
 import 'package:nanana_app/src/shared_prefs/endpoint_base.dart';
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';

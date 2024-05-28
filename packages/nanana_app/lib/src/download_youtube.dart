@@ -8,15 +8,15 @@ import 'package:path/path.dart' as path;
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class YoutubeView extends StatefulWidget {
-  YoutubeView({super.key, required this.title});
+  const YoutubeView({super.key, required this.title});
 
   final String title;
 
   @override
-  _YoutubeViewState createState() => _YoutubeViewState();
+  YoutubeViewState createState() => YoutubeViewState();
 }
 
-class _YoutubeViewState extends State<YoutubeView> {
+class YoutubeViewState extends State<YoutubeView> {
   final textController = TextEditingController();
 
   @override

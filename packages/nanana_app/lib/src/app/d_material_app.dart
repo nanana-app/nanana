@@ -1,15 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nanana_app/src/app/language_select.dart';
 // Flutter imports:
 import 'package:flutter_gen/gen_l10n/app_localizations.dart' as fgen;
-import 'package:fl_country_code_picker/fl_country_code_picker.dart' as flc;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanana_app/src/app/l10n.dart';
 import 'package:nanana_app/src/app/top_provider.dart';
-import 'package:nanana_app/src/editor/transcribe.dart';
 import 'package:nanana_app/src/home.dart';
-import 'package:nanana_app/src/player/player.dart';
 import 'package:provider/provider.dart';
 
 class MyMaterialApp extends StatelessWidget {
@@ -17,7 +14,10 @@ class MyMaterialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final top = Provider.of<TopProvider>(context, listen: false);
+    final top =
+        Provider.of<TopProvider>(context, listen: false); // ? pass it to true
+    print('top.locale');
+    print(top.locale);
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       locale: Locale(top.locale.languageCode),
@@ -26,18 +26,16 @@ class MyMaterialApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        flc.CountryLocalizations.delegate,
         FallbackLocalizationDelegate(),
         FallbackLocalizationDelegateCup(),
       ],
-      supportedLocales: locales,
-      navigatorObservers: [],
+      supportedLocales: LocalesSupported.locales,
       title: 'Nanana',
       theme: ThemeData.light(useMaterial3: true),
       //showSemanticsDebugger: widget.environment ==Environment.test,
       //debugShowMaterialGrid: widget.environment ==Environment.test,
       debugShowCheckedModeBanner: false,
-      home: const HomeView(),
+      home: const TranscriptionsView(),
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute<void>(
           settings: settings,
@@ -86,77 +84,3 @@ class FallbackLocalizationDelegateCup
   @override
   bool shouldReload(_) => false;
 }
-
-const locales = [
-  Locale('fr'),
-  Locale('en'),
-  Locale('iu'),
-  Locale('fil'),
-  Locale('af'),
-  Locale('am'),
-  Locale('ar'),
-  Locale('az'),
-  Locale('bg'),
-  Locale('bn'),
-  Locale('bs'),
-  Locale('ca'),
-  Locale('cs'),
-  Locale('da'),
-  Locale('de'),
-  Locale('el'),
-  Locale('es'),
-  Locale('et'),
-  Locale('fa'),
-  Locale('fi'),
-  Locale('gl'),
-  Locale('ha'),
-  Locale('he'),
-  Locale('hi'),
-  Locale('hr'),
-  Locale('ht'),
-  Locale('hu'),
-  Locale('hy'),
-  Locale('id'),
-  Locale('is'),
-  Locale('it'),
-  Locale('ja'),
-  Locale('ka'),
-  Locale('kk'),
-  Locale('km'),
-  Locale('ko'),
-  Locale('ku'),
-  Locale('ky'),
-  Locale('lt'),
-  Locale('lv'),
-  Locale('mk'),
-  Locale('ml'),
-  Locale.fromSubtags(languageCode: 'mn', scriptCode: 'Mong'),
-  Locale('ms'),
-  Locale('my'),
-  Locale('nb'),
-  Locale('nl'),
-  Locale('ne'),
-  Locale('no'),
-  Locale('pl'),
-  Locale('ps'),
-  Locale('pt'),
-  Locale('ro'),
-  Locale('ru'),
-  Locale('sd'),
-  Locale('sk'),
-  Locale('sl'),
-  Locale('so'),
-  Locale('sq'),
-  Locale('sr'),
-  Locale('sv'),
-  Locale('ta'),
-  Locale('th'),
-  Locale('tr'),
-  Locale('tt'),
-  Locale('ug'),
-  Locale('uk'),
-  Locale('ur'),
-  Locale('uz'),
-  Locale('vi'),
-  Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-];

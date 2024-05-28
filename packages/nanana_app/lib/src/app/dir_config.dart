@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 abstract class DirConfig {
   DirConfig._();
-  static String locale = 'fr';
+  static String locale = 'en';
   static String documentPath = '';
   static String appName = '';
 

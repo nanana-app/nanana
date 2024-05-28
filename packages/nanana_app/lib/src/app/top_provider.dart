@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:nanana_app/src/app/ze_stuff.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +12,7 @@ class TopProvider extends ChangeNotifier {
     this.appDirectoryPrivate,
     this.packageInfo,
     this.prefs, {
-    this.daPrivateLocale = const Locale('fr'),
+    required this.daPrivateLocale,
   });
 
   Locale daPrivateLocale;
