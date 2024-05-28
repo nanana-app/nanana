@@ -2,7 +2,7 @@
 //
 import 'package:languages_dart/export.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nanana_app/src/mobx/transcriptions.dart';
+import 'package:nanana_app/src/mobx/crud_stores/transcriptions.dart';
 import 'package:nanana_app/src/mobx/validators/abstract.dart';
 import 'package:nanana_app/src/models/transcription.dart';
 
@@ -13,8 +13,8 @@ class TranscriptionFormStore = TranscriptionFormStoreAbs
 
 abstract class TranscriptionFormStoreAbs extends FormStoreAbstract
     with Store, Validators {
-  final TranscriptionsStore _transcriptionsStore;
-  TranscriptionFormStoreAbs(this._transcriptionsStore);
+  final TranscriptionStore _transcriptionStore;
+  TranscriptionFormStoreAbs(this._transcriptionStore);
 
   @override
   FormErrorAbstract errorStore = FormErrorTranscriptionCreate();
@@ -72,7 +72,7 @@ abstract class TranscriptionFormStoreAbs extends FormStoreAbstract
       dateCreate: now,
     );
 
-    return await _transcriptionsStore.createOne(transcription);
+    return await _transcriptionStore.createOne(transcription);
   }
 }
 

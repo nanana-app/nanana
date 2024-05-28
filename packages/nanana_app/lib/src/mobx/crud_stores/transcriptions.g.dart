@@ -8,18 +8,18 @@ part of 'transcriptions.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
+mixin _$TranscriptionStore on TranscriptionStoreBase, Store {
   Computed<ObservableList<Transcription>>? _$calibresSearchableComputed;
 
   @override
   ObservableList<Transcription> get calibresSearchable =>
       (_$calibresSearchableComputed ??= Computed<ObservableList<Transcription>>(
               () => super.calibresSearchable,
-              name: 'TranscriptionsStoreBase.calibresSearchable'))
+              name: 'TranscriptionStoreBase.calibresSearchable'))
           .value;
 
   late final _$initialLoadingAtom =
-      Atom(name: 'TranscriptionsStoreBase.initialLoading', context: context);
+      Atom(name: 'TranscriptionStoreBase.initialLoading', context: context);
 
   @override
   bool get initialLoading {
@@ -34,8 +34,8 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
     });
   }
 
-  late final _$_searchedByPrivateAtom = Atom(
-      name: 'TranscriptionsStoreBase._searchedByPrivate', context: context);
+  late final _$_searchedByPrivateAtom =
+      Atom(name: 'TranscriptionStoreBase._searchedByPrivate', context: context);
 
   @override
   SearchedBy get _searchedByPrivate {
@@ -51,7 +51,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$_queryStringPrivateAtom = Atom(
-      name: 'TranscriptionsStoreBase._queryStringPrivate', context: context);
+      name: 'TranscriptionStoreBase._queryStringPrivate', context: context);
 
   @override
   String get _queryStringPrivate {
@@ -67,7 +67,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$sortedByAtom =
-      Atom(name: 'TranscriptionsStoreBase.sortedBy', context: context);
+      Atom(name: 'TranscriptionStoreBase.sortedBy', context: context);
 
   @override
   Observable<SortedBy> get sortedBy {
@@ -83,7 +83,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$transcriptionsAtom =
-      Atom(name: 'TranscriptionsStoreBase.transcriptions', context: context);
+      Atom(name: 'TranscriptionStoreBase.transcriptions', context: context);
 
   @override
   ObservableList<Transcription> get transcriptions {
@@ -99,8 +99,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$_transcriptionsFilteredAtom = Atom(
-      name: 'TranscriptionsStoreBase._transcriptionsFiltered',
-      context: context);
+      name: 'TranscriptionStoreBase._transcriptionsFiltered', context: context);
 
   @override
   ObservableList<Transcription> get _transcriptionsFiltered {
@@ -117,7 +116,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$initAsyncAction =
-      AsyncAction('TranscriptionsStoreBase.init', context: context);
+      AsyncAction('TranscriptionStoreBase.init', context: context);
 
   @override
   Future<bool> init({List<Transcription>? data}) {
@@ -125,7 +124,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$clearSearchAsyncAction =
-      AsyncAction('TranscriptionsStoreBase.clearSearch', context: context);
+      AsyncAction('TranscriptionStoreBase.clearSearch', context: context);
 
   @override
   Future<void> clearSearch() {
@@ -133,7 +132,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$updateTranscriptionAsyncAction = AsyncAction(
-      'TranscriptionsStoreBase.updateTranscription',
+      'TranscriptionStoreBase.updateTranscription',
       context: context);
 
   @override
@@ -143,7 +142,7 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$importFromJsonAsyncAction =
-      AsyncAction('TranscriptionsStoreBase.importFromJson', context: context);
+      AsyncAction('TranscriptionStoreBase.importFromJson', context: context);
 
   @override
   Future<ObservableList<Transcription>> importFromJson(String json) {
@@ -151,57 +150,57 @@ mixin _$TranscriptionsStore on TranscriptionsStoreBase, Store {
   }
 
   late final _$createOneAsyncAction =
-      AsyncAction('TranscriptionsStoreBase.createOne', context: context);
+      AsyncAction('TranscriptionStoreBase.createOne', context: context);
 
   @override
   Future<Transcription> createOne(Transcription data) {
     return _$createOneAsyncAction.run(() => super.createOne(data));
   }
 
-  late final _$TranscriptionsStoreBaseActionController =
-      ActionController(name: 'TranscriptionsStoreBase', context: context);
+  late final _$TranscriptionStoreBaseActionController =
+      ActionController(name: 'TranscriptionStoreBase', context: context);
 
   @override
   void setSearchedBy(SearchedBy val) {
-    final _$actionInfo = _$TranscriptionsStoreBaseActionController.startAction(
-        name: 'TranscriptionsStoreBase.setSearchedBy');
+    final _$actionInfo = _$TranscriptionStoreBaseActionController.startAction(
+        name: 'TranscriptionStoreBase.setSearchedBy');
     try {
       return super.setSearchedBy(val);
     } finally {
-      _$TranscriptionsStoreBaseActionController.endAction(_$actionInfo);
+      _$TranscriptionStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setQueryString(String val) {
-    final _$actionInfo = _$TranscriptionsStoreBaseActionController.startAction(
-        name: 'TranscriptionsStoreBase.setQueryString');
+    final _$actionInfo = _$TranscriptionStoreBaseActionController.startAction(
+        name: 'TranscriptionStoreBase.setQueryString');
     try {
       return super.setQueryString(val);
     } finally {
-      _$TranscriptionsStoreBaseActionController.endAction(_$actionInfo);
+      _$TranscriptionStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   ObservableList<Transcription> sortBy(SortedBy sortBy) {
-    final _$actionInfo = _$TranscriptionsStoreBaseActionController.startAction(
-        name: 'TranscriptionsStoreBase.sortBy');
+    final _$actionInfo = _$TranscriptionStoreBaseActionController.startAction(
+        name: 'TranscriptionStoreBase.sortBy');
     try {
       return super.sortBy(sortBy);
     } finally {
-      _$TranscriptionsStoreBaseActionController.endAction(_$actionInfo);
+      _$TranscriptionStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void searchBySongOrId() {
-    final _$actionInfo = _$TranscriptionsStoreBaseActionController.startAction(
-        name: 'TranscriptionsStoreBase.searchBySongOrId');
+    final _$actionInfo = _$TranscriptionStoreBaseActionController.startAction(
+        name: 'TranscriptionStoreBase.searchBySongOrId');
     try {
       return super.searchBySongOrId();
     } finally {
-      _$TranscriptionsStoreBaseActionController.endAction(_$actionInfo);
+      _$TranscriptionStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

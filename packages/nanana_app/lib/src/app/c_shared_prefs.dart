@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:nanana_app/src/app/d_material_app.dart';
 import 'package:nanana_app/src/app/top_provider.dart';
 import 'package:nanana_app/src/app/ze_stuff.dart';
+import 'package:nanana_app/src/mobx/crud_stores/transcriptions.dart';
 import 'package:nanana_app/src/shared_prefs/locale/get_locale.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class SharedPrefsFetcher extends StatelessWidget {
                         environment, appDir, packageInfo, snap.data!,
                         daPrivateLocale:
                             const Locale.fromSubtags(languageCode: 'en')),
-                    child: const MyMaterialApp(),
+                    child: const ProvidersMatriochka(),
                   )
                 : FutureBuilder2<Locale>(
                     future: getLocale(snap.data!),
@@ -73,7 +74,7 @@ class SharedPrefsFetcher extends StatelessWidget {
                                 ? const Locale.fromSubtags(languageCode: 'en')
                                 : snapLocale.data!,
                           ),
-                          child: const MyMaterialApp(),
+                          child: const ProvidersMatriochka(),
                         );
                       }
                     });
@@ -81,3 +82,37 @@ class SharedPrefsFetcher extends StatelessWidget {
         });
   }
 }
+
+class ProvidersMatriochka extends StatelessWidget {
+  const ProvidersMatriochka({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final create = CreateTranscription();
+    final readAll = ReadAllTranscriptions();
+    final update = UpdateTranscription();
+    final service = TranscriptionService(create, readAll, update);
+
+    return Provider<TranscriptionStore>(
+        create: (_) => TranscriptionStore(service),
+        child: const MyMaterialApp());
+  }
+}
+
+// class ServicesProvider extends StatelessWidget {
+//   const ServicesProvider({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: [
+//         ProxyProvider3<CreateTranscription, ReadAllTranscriptions,
+//             UpdateTranscription, TranscriptionService>(
+//           update: (c, create, read, update, service) {
+//             return service ?? TranscriptionService(create, read, update);
+//           },
+//         )
+//       ],
+//     );
+//   }
+// }

@@ -36,9 +36,10 @@ class CreateTranscription
   CreateTranscription();
 
   @override
-  Future<Transcription> request(Transcription data) {
+  Future<Transcription> request(Transcription data) async {
     // TODO: implement request
-    throw UnimplementedError();
+    // throw UnimplementedError();
+    return data;
   }
 }
 
@@ -98,12 +99,12 @@ enum SortedBy {
 
 enum SearchedBy { titleOrId, none } // categories will be added her eventually
 
-class TranscriptionsStore = TranscriptionsStoreBase with _$TranscriptionsStore;
+class TranscriptionStore = TranscriptionStoreBase with _$TranscriptionStore;
 
-abstract class TranscriptionsStoreBase with Store {
+abstract class TranscriptionStoreBase with Store {
   final TranscriptionService _transcriptionService;
 
-  TranscriptionsStoreBase(this._transcriptionService) {
+  TranscriptionStoreBase(this._transcriptionService) {
     initialLoading = true;
     _transcriptionService;
     transcriptions = ObservableList<Transcription>();

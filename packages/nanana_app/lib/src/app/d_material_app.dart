@@ -16,8 +16,7 @@ class MyMaterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final top =
         Provider.of<TopProvider>(context, listen: false); // ? pass it to true
-    print('top.locale');
-    print(top.locale);
+
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       locale: Locale(top.locale.languageCode),

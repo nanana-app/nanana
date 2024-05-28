@@ -4,7 +4,7 @@ import 'package:nanana_app/src/app/l10n.dart';
 import 'package:nanana_app/src/create_transcription.dart';
 import 'package:nanana_app/src/widgets/language_select.dart';
 import 'package:nanana_app/src/app/top_provider.dart';
-import 'package:nanana_app/src/editor/transcription_view.dart';
+import 'package:nanana_app/src/transcription_view.dart';
 import 'package:nanana_app/src/home.dart';
 import 'package:nanana_app/src/player/player.dart';
 import 'package:provider/provider.dart';
@@ -68,16 +68,16 @@ class DrawerNanana extends StatelessWidget {
                               children: <TextSpan>[
                                 TextSpan(
                                   text: top.appBuildInt != 0
-                                      ? 'Nana v${top.appBuildInt}'
+                                      ? 'na na na v${top.appBuildInt}'
                                       : top.appVersion !=
                                               '1.0.0' // version == buildnumber
-                                          ? 'Nana v${top.appVersion}'
-                                          : 'Nana',
+                                          ? 'na na na v${top.appVersion}'
+                                          : 'na na na',
                                   style: const TextStyle(
-                                    fontFamily: 'Barokah',
-                                    fontSize: 12.0,
-                                    color: Colors.black,
-                                  ),
+                                      fontFamily: 'Barokah',
+                                      fontSize: 16.0,
+                                      color: Colors.black,
+                                      overflow: TextOverflow.visible),
                                 )
                               ],
                             ),
@@ -86,16 +86,16 @@ class DrawerNanana extends StatelessWidget {
                         ),
                       ],
                     ),
-                    DrawerTopTileWidget(
-                        const Icon(Icons.edit), Text('Nouvelle transcription'),
-                        () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CreateTranscriptionView(),
-                        ),
-                      );
-                    }),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 16),
+                    // DrawerTopTileWidget(
+                    //     const Icon(Icons.edit), Text('Nouvelle transcription'),
+                    //     () {
+                    //   Navigator.of(context).push(
+                    //     MaterialPageRoute(
+                    //       builder: (context) => const CreateTranscriptionView(),
+                    //     ),
+                    //   );
+                    // }),
                     DrawerTopTileWidget(
                         const Icon(
                           Icons.play_circle_outline,

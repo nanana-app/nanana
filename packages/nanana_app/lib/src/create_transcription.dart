@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:language_picker/export.dart';
 import 'package:languages_dart/export.dart';
-import 'package:nanana_app/src/editor/find_panel_view.dart';
-import 'package:nanana_app/src/mobx/transcriptions.dart';
+import 'package:nanana_app/src/widgets/editor/find_panel_view.dart';
+import 'package:nanana_app/src/transcription_view.dart';
+import 'package:nanana_app/src/mobx/crud_stores/transcriptions.dart';
 import 'package:nanana_app/src/mobx/validators/abstract.dart';
 import 'package:nanana_app/src/mobx/validators/transcription.dart';
 import 'package:nanana_app/src/models/transcription.dart';
+import 'package:nanana_app/src/widgets/dialog.dart';
+import 'package:provider/provider.dart';
 
 import 'package:re_editor/re_editor.dart';
+
+const double widgetHeightSpacer = 12;
 
 class CreateTranscriptionView extends StatefulWidget {
   const CreateTranscriptionView({super.key});
@@ -21,17 +26,22 @@ class CreateTranscriptionView extends StatefulWidget {
 class _CreateTranscriptionViewState extends State<CreateTranscriptionView> {
   final scrollController = ScrollController();
   late TranscriptionFormStore validator;
+  final languageTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    final create = CreateTranscription();
-    final readAll = ReadAllTranscriptions();
-    final update = UpdateTranscription();
-    final service = TranscriptionService(create, readAll, update);
-    final store = TranscriptionsStore(service);
-    validator = TranscriptionFormStore(store);
+
+    final _store = Provider.of<TranscriptionStore>(context, listen: false);
+    validator = TranscriptionFormStore(_store);
     validator.setupValidations();
+    languageTextController.text = validator.language.name;
+  }
+
+  @override
+  void dispose() {
+    languageTextController.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,8 +49,25 @@ class _CreateTranscriptionViewState extends State<CreateTranscriptionView> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.save),
-        onPressed: () {
+        onPressed: () async {
           // do the syncing saving boogie
+          validator.validateAll();
+          if (validator.hasErrors) {
+            return;
+          }
+          try {
+            final transcription = await validator.createTranscriptionFromForm();
+            print(transcription.toMap());
+            Navigator.of(context).pop();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TranscriptionView(
+                    isEdit: true, transcription: transcription),
+              ),
+            );
+          } catch (e) {
+            return InformDialog.showDialogNanana("$e", context);
+          }
         },
       ),
       appBar: AppBar(
@@ -50,7 +77,7 @@ class _CreateTranscriptionViewState extends State<CreateTranscriptionView> {
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 14, fontFamily: 'Barokah', color: Colors.black),
-            overflow: TextOverflow.ellipsis),
+            overflow: TextOverflow.visible),
         actions: [],
       ),
       body: SingleChildScrollView(
@@ -60,35 +87,56 @@ class _CreateTranscriptionViewState extends State<CreateTranscriptionView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              // TODO fill the onsubmit to preload other fields
               YoutubeUrlTextField(validator),
+              const SizedBox(height: widgetHeightSpacer),
               SongTextField(validator),
+              const SizedBox(height: widgetHeightSpacer),
               ArtistTextField(validator),
+              const SizedBox(height: widgetHeightSpacer),
+              // languageTextWidget
               GestureDetector(
-                  onTap: () async {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Theme(
-                        data: Theme.of(context),
-                        child: LanguagePickerDialog(
-                          searchInputDecoration:
-                              const InputDecoration(icon: Icon(Icons.search)),
-                          isSearchable: true,
-                          title: const Text(''),
-                          onValuePicked: (Language language) async {
-                            setState(() {
-                              validator.language = language;
-                            });
-                          },
-                          itemBuilder: (language) => LanguageWidget(language),
+                onTap: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Theme(
+                      data: Theme.of(context),
+                      child: LanguagePickerDialog(
+                        searchInputDecoration: const InputDecoration(
+                          icon: Icon(Icons.search),
                         ),
+                        isSearchable: true,
+                        title: const Text(''),
+                        onValuePicked: (Language language) async {
+                          setState(() {
+                            validator.language = language;
+                            languageTextController.text =
+                                language.name.isEmpty && language.nameEn.isEmpty
+                                    ? ''
+                                    : language.name.isEmpty
+                                        ? language.nameEn
+                                        : language.name;
+                          });
+                        },
+                        itemBuilder: (language) => LanguageWidget(language),
                       ),
-                    );
-                  },
-                  child: LanguageWidget(validator.language)
-
-                  // TODO fill the onsubmit to preload other fields
-
+                    ),
+                  );
+                },
+                child: TextFormField(
+                  maxLines: 1,
+                  style: const TextStyle(color: Colors.black),
+                  enabled: false,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Language*',
+                    labelStyle: const TextStyle(color: Colors.black),
+                    icon: const Icon(Icons.translate),
+                    errorText: validator.errorStore.languageError,
                   ),
+                  controller: languageTextController,
+                ),
+              ),
             ],
           ),
         ),

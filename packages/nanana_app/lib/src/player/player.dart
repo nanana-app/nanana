@@ -90,7 +90,7 @@ class PlayerViewState extends State<PlayerView> with WidgetsBindingObserver {
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Display play/pause button and volume/speed sliders.
               ControlButtons(_player),
