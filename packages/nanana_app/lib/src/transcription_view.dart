@@ -5,6 +5,26 @@ import 'package:nanana_app/src/models/transcription.dart';
 
 import 'package:re_editor/re_editor.dart';
 
+// ! incruste la vidéo pas le mp3
+// je crois qu'il y a un player open source qui pourrait être mieux que l'autre package
+// met sekouba bambino
+// TODO remove icons.save, saving should be automatic
+// saving should/could work offline
+
+// TODO ajouter le soussou dans les langues
+
+//TODO : icone pour intent qui ouvre youtube (webview qui redirige)
+// TODO : un peu + d'espace entre le player et l'editeur
+// autofocus sur l'éditeur et hint si possible (...)
+
+// FAB en bas à droite avec les actions
+// après piublication je récupère une url
+// publier puis partager
+
+// ajouter traduit par
+// ajouter des likes
+// ajouter le nombre de vues
+
 class TranscriptionView extends StatefulWidget {
   final bool isEdit;
   final Transcription transcription;

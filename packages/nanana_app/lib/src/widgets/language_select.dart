@@ -22,9 +22,9 @@ class _LanguageSelectWidgetState extends State<LanguageSelectWidget> {
   void initState() {
     super.initState();
     final top = Provider.of<TopProvider>(context, listen: false);
-    if (Languages.defaultLanguages.any((e) => e.locale == top.locale)) {
-      _selectedLanguage =
-          Languages.defaultLanguages.firstWhere((e) => e.locale == top.locale);
+    if (Languages.defaultLanguages.any((e) => e.localeIntl == top.locale)) {
+      _selectedLanguage = Languages.defaultLanguages
+          .firstWhere((e) => e.localeIntl == top.locale);
     } else {
       _selectedLanguage = Language.empty;
     }
@@ -46,9 +46,10 @@ class _LanguageSelectWidgetState extends State<LanguageSelectWidget> {
               setState(() => _selectedLanguage = language);
               final top = Provider.of<TopProvider>(context, listen: false);
               final localeFlutter = Locale.fromSubtags(
-                  languageCode: _selectedLanguage.locale!.languageCode,
-                  scriptCode: _selectedLanguage.locale!.scriptCode,
-                  countryCode: _selectedLanguage.locale!.countryCode);
+                  languageCode:
+                      _selectedLanguage.localeIntl.locale.languageCode,
+                  scriptCode: _selectedLanguage.localeIntl.locale.scriptCode,
+                  countryCode: _selectedLanguage.localeIntl.locale.countryCode);
               await LocaleSave(top.prefs).request(localeFlutter);
               top.setLocale(localeFlutter);
             },

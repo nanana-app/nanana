@@ -1,7 +1,6 @@
 // Flutter imports:
 // ignore_for_file: file_names
 import 'dart:io';
-import 'package:intl/locale.dart' as intl;
 import 'package:flutter/material.dart';
 import 'package:nanana_app/src/app/d_material_app.dart';
 import 'package:nanana_app/src/app/top_provider.dart';

@@ -1,9 +1,14 @@
 import 'package:intl/locale.dart';
 
-class Language {
-  const Language(this.locale, this.nameEn, this.name);
+class LocaleIntl {
+  final Locale locale;
+  const LocaleIntl(this.locale);
+}
 
-  final Locale? locale;
+class Language {
+  const Language(this.localeIntl, this.nameEn, this.name);
+
+  final LocaleIntl localeIntl;
   final String nameEn;
   final String name;
 
@@ -11,576 +16,680 @@ class Language {
     return {
       'name': name,
       'nameEn': nameEn,
-      'locale': locale.toString(), // == toLanguageTag()
+      'localeIntl': localeIntl.toString(), // == toLanguageTag()
     };
   }
 
   Language.fromMap(Map<String, String> map)
       : nameEn = map['nameEn']!,
-        locale = Locale.fromSubtags(languageCode: map['locale']!),
+        localeIntl =
+            LocaleIntl(Locale.fromSubtags(languageCode: map['localeIntl']!)),
         name = map['name']!;
 
-  static final empty = Language(null, '', '');
+  static final empty =
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'zzz')), '', '');
 
   /// Returns the Language matching the given ISO code from the standard list.
   factory Language.fromIsoCode(String code) =>
-      Languages.defaultLanguages.firstWhere((l) => l.locale == code);
+      Languages.defaultLanguages.firstWhere((l) => l.localeIntl == code);
 
   bool operator ==(o) =>
-      o is Language && nameEn == o.nameEn && locale == o.locale;
+      o is Language && nameEn == o.nameEn && localeIntl == o.localeIntl;
 
   @override
-  int get hashCode => locale.hashCode;
+  int get hashCode => localeIntl.hashCode;
 }
 
 class Languages {
   static Language get afrikaans => Language(
-      Locale.fromSubtags(languageCode: 'af'), 'Afrikaans', 'Afrikaans');
-  static Language get albanian =>
-      Language(Locale.fromSubtags(languageCode: 'sq'), 'Albanian', 'Shqip');
-  static Language get amharic =>
-      Language(Locale.fromSubtags(languageCode: 'am'), 'Amharic', 'አማርኛ');
-  static Language get arabic =>
-      Language(Locale.fromSubtags(languageCode: 'ar'), 'Arabic', 'العربية');
-  static Language get armenian =>
-      Language(Locale.fromSubtags(languageCode: 'hy'), 'Armenian', 'Հայերեն');
-  static Language get assamese =>
-      Language(Locale.fromSubtags(languageCode: 'as'), 'Assamese', 'অসমীয়া');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'af')),
+      'Afrikaans',
+      'Afrikaans');
+  static Language get albanian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sq')), 'Albanian', 'Shqip');
+  static Language get amharic => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'am')), 'Amharic', 'አማርኛ');
+  static Language get arabic => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ar')), 'Arabic', 'العربية');
+  static Language get armenian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hy')),
+      'Armenian',
+      'Հայերեն');
+  static Language get assamese => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'as')),
+      'Assamese',
+      'অসমীয়া');
   static Language get azerbaijaniLatin => Language(
-      Locale.fromSubtags(languageCode: 'az'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'az')),
       'Azerbaijani (Latin)',
       'Azərbaycan dili');
   static Language get bambara => Language(
-      Locale.fromSubtags(languageCode: 'bm'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bm')),
       'Bambara',
       'Bambara'); // TODO check native
-  static Language get bangla =>
-      Language(Locale.fromSubtags(languageCode: 'bn'), 'Bangla', 'বাংলা');
+  static Language get bangla => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bn')), 'Bangla', 'বাংলা');
   static Language get bashkir => Language(
-      Locale.fromSubtags(languageCode: 'ba'), 'Bashkir', 'башҡорт теле');
-  static Language get basque =>
-      Language(Locale.fromSubtags(languageCode: 'eu'), 'Basque', 'Euskara');
-  static Language get bhojpuri =>
-      Language(Locale.fromSubtags(languageCode: 'bho'), 'Bhojpuri', 'भोजपुरी');
-  static Language get bodo =>
-      Language(Locale.fromSubtags(languageCode: 'brx'), 'Bodo', 'बरʼ ');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ba')),
+      'Bashkir',
+      'башҡорт теле');
+  static Language get basque => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'eu')), 'Basque', 'Euskara');
+  static Language get bhojpuri => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bho')),
+      'Bhojpuri',
+      'भोजपुरी');
+  static Language get bodo => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'brx')), 'Bodo', 'बरʼ ');
   static Language get bosnianLatin => Language(
-      Locale.fromSubtags(languageCode: 'bs'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bs')),
       'Bosnian (Latin)',
       'Bosanski jezik');
   static Language get bulgarian => Language(
-      Locale.fromSubtags(languageCode: 'bg'), 'Bulgarian', 'български език');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bg')),
+      'Bulgarian',
+      'български език');
   static Language get cantoneseTraditional => Language(
-      Locale.fromSubtags(languageCode: 'yue'), 'Cantonese (Traditional)', '粵語');
-  static Language get catalan =>
-      Language(Locale.fromSubtags(languageCode: 'ca'), 'Catalan', 'Català');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'yue')),
+      'Cantonese (Traditional)',
+      '粵語');
+  static Language get catalan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ca')), 'Catalan', 'Català');
   static Language get chineseLiterary => Language(
-      Locale.fromSubtags(languageCode: 'lzh'), 'Chinese (Literary)', '中文');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lzh')),
+      'Chinese (Literary)',
+      '中文');
   static Language get chineseSimplified => Language(
-      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans')),
       'Chinese Simplified',
       '简化字');
   static Language get chineseTraditional => Language(
-      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')),
       'Chinese Traditional',
       '簡化字');
-  static Language get chiShona =>
-      Language(Locale.fromSubtags(languageCode: 'sn'), 'chiShona', 'chiShona');
-  static Language get croatian =>
-      Language(Locale.fromSubtags(languageCode: 'hr'), 'Croatian', 'Hrvatski');
+  static Language get chiShona => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sn')),
+      'chiShona',
+      'chiShona');
+  static Language get croatian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hr')),
+      'Croatian',
+      'Hrvatski');
   static Language get czech => Language(
-      Locale.fromSubtags(languageCode: 'cs'), 'Czech', 'Česky / čeština');
-  static Language get danish =>
-      Language(Locale.fromSubtags(languageCode: 'da'), 'Danish', 'Dansk');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'cs')),
+      'Czech',
+      'Česky / čeština');
+  static Language get danish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'da')), 'Danish', 'Dansk');
   static Language get dari =>
-      Language(Locale.fromSubtags(languageCode: 'prs'), 'Dari', '');
-  static Language get divehi =>
-      Language(Locale.fromSubtags(languageCode: 'dv'), 'Divehi', 'ދިވެހި');
-  static Language get dogri =>
-      Language(Locale.fromSubtags(languageCode: 'doi'), 'Dogri', '');
-  static Language get dutch =>
-      Language(Locale.fromSubtags(languageCode: 'nl'), 'Dutch', 'Nederlands');
-  static Language get english =>
-      Language(Locale.fromSubtags(languageCode: 'en'), 'English', 'English');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'prs')), 'Dari', '');
+  static Language get divehi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'dv')), 'Divehi', 'ދިވެހި');
+  static Language get dogri => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'doi')), 'Dogri', '');
+  static Language get dutch => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nl')),
+      'Dutch',
+      'Nederlands');
+  static Language get english => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'en')), 'English', 'English');
   static Language get estonian => Language(
-      Locale.fromSubtags(languageCode: 'et'), 'Estonian', 'Eesti keel');
-  static Language get faroese =>
-      Language(Locale.fromSubtags(languageCode: 'fo'), 'Faroese', 'Føroyskt');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'et')),
+      'Estonian',
+      'Eesti keel');
+  static Language get faroese => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fo')),
+      'Faroese',
+      'Føroyskt');
   static Language get fijian => Language(
-      Locale.fromSubtags(languageCode: 'fj'), 'Fijian', 'Vosa Vakaviti');
-  static Language get filipino =>
-      Language(Locale.fromSubtags(languageCode: 'fil'), 'Filipino', 'Tagalog');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fj')),
+      'Fijian',
+      'Vosa Vakaviti');
+  static Language get filipino => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fil')),
+      'Filipino',
+      'Tagalog');
   static Language get finnish => Language(
-      Locale.fromSubtags(languageCode: 'fi'), 'Finnish', 'Suomen kieli');
-  static Language get french =>
-      Language(Locale.fromSubtags(languageCode: 'fr'), 'French', 'Français');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fi')),
+      'Finnish',
+      'Suomen kieli');
+  static Language get french => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fr')), 'French', 'Français');
   static Language get frenchCanada => Language(
-      Locale.fromSubtags(languageCode: 'fr-ca'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fr-ca')),
       'French (Canada)',
       'Québécois');
-  static Language get galician =>
-      Language(Locale.fromSubtags(languageCode: 'gl'), 'Galician', 'Galego');
-  static Language get georgian =>
-      Language(Locale.fromSubtags(languageCode: 'ka'), 'Georgian', 'ქართული');
-  static Language get german =>
-      Language(Locale.fromSubtags(languageCode: 'de'), 'German', 'Deutsch');
-  static Language get greek =>
-      Language(Locale.fromSubtags(languageCode: 'el'), 'Greek', 'Ελληνικά');
-  static Language get gujarati =>
-      Language(Locale.fromSubtags(languageCode: 'gu'), 'Gujarati', 'ગુજરાતી');
+  static Language get galician => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'gl')), 'Galician', 'Galego');
+  static Language get georgian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ka')),
+      'Georgian',
+      'ქართული');
+  static Language get german => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'de')), 'German', 'Deutsch');
+  static Language get greek => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'el')), 'Greek', 'Ελληνικά');
+  static Language get gujarati => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'gu')),
+      'Gujarati',
+      'ગુજરાતી');
   static Language get haitianCreole => Language(
-      Locale.fromSubtags(languageCode: 'ht'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ht')),
       'Haitian Creole',
       'Kreyòl ayisyen');
-  static Language get hausa =>
-      Language(Locale.fromSubtags(languageCode: 'ha'), 'Hausa', 'هَوُسَ');
-  static Language get hebrew =>
-      Language(Locale.fromSubtags(languageCode: 'he'), 'Hebrew', 'עברית');
+  static Language get hausa => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ha')), 'Hausa', 'هَوُسَ');
+  static Language get hebrew => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'he')), 'Hebrew', 'עברית');
   static Language get hindi => Language(
-      Locale.fromSubtags(languageCode: 'hi'), 'Hindi', 'हिन्दी / हिंदी');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hi')),
+      'Hindi',
+      'हिन्दी / हिंदी');
   static Language get hmongDawLatin => Language(
-      Locale.fromSubtags(languageCode: 'mww'), 'Hmong Daw (Latin)', '');
-  static Language get hungarian =>
-      Language(Locale.fromSubtags(languageCode: 'hu'), 'Hungarian', 'magyar');
-  static Language get icelandic =>
-      Language(Locale.fromSubtags(languageCode: 'is'), 'Icelandic', 'Íslenska');
-  static Language get igbo =>
-      Language(Locale.fromSubtags(languageCode: 'ig'), 'Igbo', 'Igbo');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mww')),
+      'Hmong Daw (Latin)',
+      '');
+  static Language get hungarian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hu')),
+      'Hungarian',
+      'magyar');
+  static Language get icelandic => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'is')),
+      'Icelandic',
+      'Íslenska');
+  static Language get igbo => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ig')), 'Igbo', 'Igbo');
   static Language get indonesian => Language(
-      Locale.fromSubtags(languageCode: 'id'), 'Indonesian', 'Bahasa Indonesia');
-  static Language get inuinnaqtun =>
-      Language(Locale.fromSubtags(languageCode: 'ikt'), 'Inuinnaqtun', '');
-  static Language get inuktitut =>
-      Language(Locale.fromSubtags(languageCode: 'iu'), 'Inuktitut', 'ᐃᓄᒃᑎᑐᑦ');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'id')),
+      'Indonesian',
+      'Bahasa Indonesia');
+  static Language get inuinnaqtun => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ikt')), 'Inuinnaqtun', '');
+  static Language get inuktitut => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'iu')),
+      'Inuktitut',
+      'ᐃᓄᒃᑎᑐᑦ');
   static Language get inuktitutLatin => Language(
-      Locale.fromSubtags(languageCode: 'iu', scriptCode: 'Latn'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'iu', scriptCode: 'Latn')),
       'Inuktitut (Latin)',
       '');
 
-  static Language get irish =>
-      Language(Locale.fromSubtags(languageCode: 'ga'), 'Irish', 'Gaeilge');
-  static Language get italian =>
-      Language(Locale.fromSubtags(languageCode: 'it'), 'Italian', 'Italiano');
+  static Language get irish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ga')), 'Irish', 'Gaeilge');
+  static Language get italian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'it')),
+      'Italian',
+      'Italiano');
   static Language get japanese => Language(
-      Locale.fromSubtags(languageCode: 'ja'), 'Japanese', '日本語 (にほんご)');
-  static Language get kannada =>
-      Language(Locale.fromSubtags(languageCode: 'kn'), 'Kannada', 'ಕನ್ನಡ');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ja')),
+      'Japanese',
+      '日本語 (にほんご)');
+  static Language get kannada => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kn')), 'Kannada', 'ಕನ್ನಡ');
   static Language get kashmiri => Language(
-      Locale.fromSubtags(languageCode: 'ks'), 'Kashmiri', 'कश्मीरी / كشميري');
-  static Language get kazakh =>
-      Language(Locale.fromSubtags(languageCode: 'kk'), 'Kazakh', 'Қазақ тілі');
-  static Language get khmer =>
-      Language(Locale.fromSubtags(languageCode: 'km'), 'Khmer', 'ភាសាខ្មែរ');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ks')),
+      'Kashmiri',
+      'कश्मीरी / كشميري');
+  static Language get kazakh => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kk')),
+      'Kazakh',
+      'Қазақ тілі');
+  static Language get khmer => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'km')), 'Khmer', 'ភាសាខ្មែរ');
   static Language get kinyarwanda => Language(
-      Locale.fromSubtags(languageCode: 'rw'), 'Kinyarwanda', 'Kinyarwanda');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'rw')),
+      'Kinyarwanda',
+      'Kinyarwanda');
   static Language get klingon => Language(
-      Locale.fromSubtags(languageCode: 'tlh', scriptCode: 'Latn'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tlh', scriptCode: 'Latn')),
       'Klingon',
       '');
   static Language get klingonPlqaD => Language(
-      Locale.fromSubtags(languageCode: 'tlh', scriptCode: 'Piqd'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tlh', scriptCode: 'Piqd')),
       'Klingon (plqaD)',
       '');
 
-  static Language get konkani =>
-      Language(Locale.fromSubtags(languageCode: 'gom'), 'Konkani', '');
-  static Language get korean => Language(Locale.fromSubtags(languageCode: 'ko'),
-      'Korean', '한국어 (韓國語) / 조선말 (朝鮮語)');
+  static Language get konkani => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'gom')), 'Konkani', '');
+  static Language get korean => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ko')),
+      'Korean',
+      '한국어 (韓國語) / 조선말 (朝鮮語)');
   static Language get kurdishCentral => Language(
-      Locale.fromSubtags(languageCode: 'ku'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ku')),
       'Kurdish (Central)',
       'Kurdî / كوردی');
   static Language get kurdishNorthern => Language(
-      Locale.fromSubtags(languageCode: 'kmr'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kmr')),
       'Kurdish (Northern)',
       'Kurdî / كوردی');
   static Language get kyrgyzCyrillic => Language(
-      Locale.fromSubtags(languageCode: 'ky'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ky')),
       'Kyrgyz (Cyrillic)',
       'кыргыз тили');
-  static Language get lao =>
-      Language(Locale.fromSubtags(languageCode: 'lo'), 'Lao', 'ພາສາລາວ');
+  static Language get lao => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lo')), 'Lao', 'ພາສາລາວ');
   static Language get latvian => Language(
-      Locale.fromSubtags(languageCode: 'lv'), 'Latvian', 'Latviešu valoda');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lv')),
+      'Latvian',
+      'Latviešu valoda');
   static Language get lithuanian => Language(
-      Locale.fromSubtags(languageCode: 'lt'), 'Lithuanian', 'Lietuvių kalba');
-  static Language get lingala =>
-      Language(Locale.fromSubtags(languageCode: 'ln'), 'Lingala', 'Lingála');
-  static Language get lowerSorbian =>
-      Language(Locale.fromSubtags(languageCode: 'dsb'), 'Lower Sorbian', '');
-  static Language get luganda =>
-      Language(Locale.fromSubtags(languageCode: 'lug'), 'Luganda', '');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lt')),
+      'Lithuanian',
+      'Lietuvių kalba');
+  static Language get lingala => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ln')), 'Lingala', 'Lingála');
+  static Language get lowerSorbian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'dsb')), 'Lower Sorbian', '');
+  static Language get luganda => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lug')), 'Luganda', '');
   static Language get macedonian => Language(
-      Locale.fromSubtags(languageCode: 'mk'), 'Macedonian', 'македонски јазик');
-  static Language get maithili =>
-      Language(Locale.fromSubtags(languageCode: 'mai'), 'Maithili', '');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mk')),
+      'Macedonian',
+      'македонски јазик');
+  static Language get maithili => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mai')), 'Maithili', '');
   static Language get malagasy => Language(
-      Locale.fromSubtags(languageCode: 'mg'), 'Malagasy', 'Fiteny malagasy');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mg')),
+      'Malagasy',
+      'Fiteny malagasy');
   static Language get malayLatin => Language(
-      Locale.fromSubtags(languageCode: 'ms'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ms')),
       'Malay (Latin)',
       'Bahasa Melayu / بهاس ملايو');
-  static Language get malayalam =>
-      Language(Locale.fromSubtags(languageCode: 'ml'), 'Malayalam', 'മലയാളം');
-  static Language get maltese =>
-      Language(Locale.fromSubtags(languageCode: 'mt'), 'Maltese', 'Malti');
-  static Language get maori =>
-      Language(Locale.fromSubtags(languageCode: 'mi'), 'Maori', 'Te reo Māori');
-  static Language get marathi =>
-      Language(Locale.fromSubtags(languageCode: 'mr'), 'Marathi', 'मराठी');
+  static Language get malayalam => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ml')),
+      'Malayalam',
+      'മലയാളം');
+  static Language get maltese => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mt')), 'Maltese', 'Malti');
+  static Language get maori => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mi')),
+      'Maori',
+      'Te reo Māori');
+  static Language get marathi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mr')), 'Marathi', 'मराठी');
   static Language get mongolianCyrillic => Language(
-      Locale.fromSubtags(languageCode: 'mn', scriptCode: 'Cyrl'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mn', scriptCode: 'Cyrl')),
       'Mongolian (Cyrillic)',
       'монгол хэл');
   static Language get mongolianTraditional => Language(
-      Locale.fromSubtags(languageCode: 'mn', scriptCode: 'Mong'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mn', scriptCode: 'Mong')),
       'Mongolian (Traditional)',
       'ᠮᠣᠩᠭᠣᠯ ᠬᠡᠯᠡ');
-  static Language get myanmar =>
-      Language(Locale.fromSubtags(languageCode: 'my'), 'Myanmar', 'ဗမာစာ');
-  static Language get nepali =>
-      Language(Locale.fromSubtags(languageCode: 'ne'), 'Nepali', 'नेपाली');
+  static Language get myanmar => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'my')), 'Myanmar', 'ဗမာစာ');
+  static Language get nepali => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ne')), 'Nepali', 'नेपाली');
   static Language get norwegian => Language(
-      Locale.fromSubtags(languageCode: 'nb'), 'Norwegian', 'Norsk bokmål');
-  static Language get nyanja =>
-      Language(Locale.fromSubtags(languageCode: 'nya'), 'Nyanja', '');
-  static Language get odia =>
-      Language(Locale.fromSubtags(languageCode: 'or'), 'Odia', 'ଓଡ଼ିଆ');
-  static Language get pashto =>
-      Language(Locale.fromSubtags(languageCode: 'ps'), 'Pashto', 'پښتو');
-  static Language get persian =>
-      Language(Locale.fromSubtags(languageCode: 'fa'), 'Persian', '');
-  static Language get polish =>
-      Language(Locale.fromSubtags(languageCode: 'pl'), 'Polish', 'Polski');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nb')),
+      'Norwegian',
+      'Norsk bokmål');
+  static Language get nyanja => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nya')), 'Nyanja', '');
+  static Language get odia => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'or')), 'Odia', 'ଓଡ଼ିଆ');
+  static Language get pashto => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ps')), 'Pashto', 'پښتو');
+  static Language get persian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fa')), 'Persian', '');
+  static Language get polish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pl')), 'Polish', 'Polski');
   static Language get portugueseBrazil => Language(
-      Locale.fromSubtags(languageCode: 'pt'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pt')),
       'Portuguese (Brazil)',
       'Português');
   static Language get portuguesePortugal => Language(
-      Locale.fromSubtags(languageCode: 'pt-pt'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pt-pt')),
       'Portuguese (Portugal)',
       'Português');
   static Language get punjabi => Language(
-      Locale.fromSubtags(languageCode: 'pa'), 'Punjabi', 'ਪੰਜਾਬੀ ; پنجابی');
-  static Language get queretaroOtomi =>
-      Language(Locale.fromSubtags(languageCode: 'otq'), 'Queretaro Otomi', '');
-  static Language get romanian =>
-      Language(Locale.fromSubtags(languageCode: 'ro'), 'Romanian', 'Română');
-  static Language get rundi =>
-      Language(Locale.fromSubtags(languageCode: 'run'), 'Rundi', '');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pa')),
+      'Punjabi',
+      'ਪੰਜਾਬੀ ; پنجابی');
+  static Language get queretaroOtomi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'otq')),
+      'Queretaro Otomi',
+      '');
+  static Language get romanian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ro')), 'Romanian', 'Română');
+  static Language get rundi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'run')), 'Rundi', '');
   static Language get russian => Language(
-      Locale.fromSubtags(languageCode: 'ru'), 'Russian', 'русский язык');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ru')),
+      'Russian',
+      'русский язык');
   static Language get samoanLatin => Language(
-      Locale.fromSubtags(languageCode: 'sm'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sm')),
       'Samoan (Latin)',
       'Gagana fa\'a Samoa');
   static Language get serbianCyrillic => Language(
-      Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Cyrl'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Cyrl')),
       'Serbian (Cyrillic)',
       'српски');
   static Language get serbianLatin => Language(
-      Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Latn'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Latn')),
       'Serbian (Latin)',
       'srpski');
-  static Language get sesotho =>
-      Language(Locale.fromSubtags(languageCode: 'st'), 'Sesotho', 'seSotho');
-  static Language get sesothoSaLeboa =>
-      Language(Locale.fromSubtags(languageCode: 'nso'), 'Sesotho sa Leboa', '');
-  static Language get setswana =>
-      Language(Locale.fromSubtags(languageCode: 'tn'), 'Setswana', 'seTswana');
+  static Language get sesotho => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'st')), 'Sesotho', 'seSotho');
+  static Language get sesothoSaLeboa => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nso')),
+      'Sesotho sa Leboa',
+      '');
+  static Language get setswana => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tn')),
+      'Setswana',
+      'seTswana');
   static Language get sindhi => Language(
-      Locale.fromSubtags(languageCode: 'sd'), 'Sindhi', 'सिन्धी / سنڌي، سندھی');
-  static Language get sinhala =>
-      Language(Locale.fromSubtags(languageCode: 'si'), 'Sinhala', 'සිංහල');
-  static Language get slovak =>
-      Language(Locale.fromSubtags(languageCode: 'sk'), 'Slovak', 'Slovenčina');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sd')),
+      'Sindhi',
+      'सिन्धी / سنڌي، سندھی');
+  static Language get sinhala => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'si')), 'Sinhala', 'සිංහල');
+  static Language get slovak => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sk')),
+      'Slovak',
+      'Slovenčina');
   static Language get slovenian => Language(
-      Locale.fromSubtags(languageCode: 'sl'), 'Slovenian', 'Slovenščina');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sl')),
+      'Slovenian',
+      'Slovenščina');
   static Language get somaliArabic => Language(
-      Locale.fromSubtags(languageCode: 'so'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'so')),
       'Somali (Arabic)',
       'Soomaaliga / af Soomaali');
-  static Language get spanish =>
-      Language(Locale.fromSubtags(languageCode: 'es'), 'Spanish', 'Español');
+  static Language get spanish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'es')), 'Spanish', 'Español');
   static Language get swahiliLatin => Language(
-      Locale.fromSubtags(languageCode: 'sw'), 'Swahili (Latin)', 'Kiswahili');
-  static Language get swedish =>
-      Language(Locale.fromSubtags(languageCode: 'sv'), 'Swedish', 'Svenska');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sw')),
+      'Swahili (Latin)',
+      'Kiswahili');
+  static Language get swedish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sv')), 'Swedish', 'Svenska');
   static Language get tahitian => Language(
-      Locale.fromSubtags(languageCode: 'ty'), 'Tahitian', 'Reo Mā`ohi');
-  static Language get tamil =>
-      Language(Locale.fromSubtags(languageCode: 'ta'), 'Tamil', 'தமிழ்');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ty')),
+      'Tahitian',
+      'Reo Mā`ohi');
+  static Language get tamil => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ta')), 'Tamil', 'தமிழ்');
   static Language get tatarLatin => Language(
-      Locale.fromSubtags(languageCode: 'tt'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tt')),
       'Tatar (Latin)',
       'татарча / tatarça / تاتارچا');
-  static Language get telugu =>
-      Language(Locale.fromSubtags(languageCode: 'te'), 'Telugu', 'తెలుగు');
-  static Language get thai =>
-      Language(Locale.fromSubtags(languageCode: 'th'), 'Thai', 'ไทย');
-  static Language get tibetan =>
-      Language(Locale.fromSubtags(languageCode: 'bo'), 'Tibetan', '');
-  static Language get tigrinya =>
-      Language(Locale.fromSubtags(languageCode: 'ti'), 'Tigrinya', 'ትግርኛ');
-  static Language get tongan =>
-      Language(Locale.fromSubtags(languageCode: 'to'), 'Tongan', 'faka Tonga');
-  static Language get turkish =>
-      Language(Locale.fromSubtags(languageCode: 'tr'), 'Turkish', 'Türkçe');
+  static Language get telugu => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'te')), 'Telugu', 'తెలుగు');
+  static Language get thai => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'th')), 'Thai', 'ไทย');
+  static Language get tibetan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bo')), 'Tibetan', '');
+  static Language get tigrinya => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ti')), 'Tigrinya', 'ትግርኛ');
+  static Language get tongan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'to')),
+      'Tongan',
+      'faka Tonga');
+  static Language get turkish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tr')), 'Turkish', 'Türkçe');
   static Language get turkmenLatin => Language(
-      Locale.fromSubtags(languageCode: 'tk'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tk')),
       'Turkmen (Latin)',
       'Türkmen / Түркмен');
   static Language get ukrainian => Language(
-      Locale.fromSubtags(languageCode: 'uk'), 'Ukrainian', 'українська мова');
-  static Language get upperSorbian =>
-      Language(Locale.fromSubtags(languageCode: 'hsb'), 'Upper Sorbian', '');
-  static Language get urdu =>
-      Language(Locale.fromSubtags(languageCode: 'ur'), 'Urdu', 'اردو');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'uk')),
+      'Ukrainian',
+      'українська мова');
+  static Language get upperSorbian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hsb')), 'Upper Sorbian', '');
+  static Language get urdu => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ur')), 'Urdu', 'اردو');
   static Language get uyghurArabic => Language(
-      Locale.fromSubtags(languageCode: 'ug'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ug')),
       'Uyghur (Arabic)',
       'Uyƣurqə ; ئۇيغۇرچ');
   static Language get uzbekLatin => Language(
-      Locale.fromSubtags(languageCode: 'uz'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'uz')),
       'Uzbek (Latin)',
       'O\'zbek / Ўзбек / أۇزبېك');
   static Language get vietnamese => Language(
-      Locale.fromSubtags(languageCode: 'vi'), 'Vietnamese', 'Tiếng Việt');
-  static Language get welsh =>
-      Language(Locale.fromSubtags(languageCode: 'cy'), 'Welsh', 'Cymraeg');
-  static Language get xhosa =>
-      Language(Locale.fromSubtags(languageCode: 'xh'), 'Xhosa', 'isiXhosa');
-  static Language get yoruba =>
-      Language(Locale.fromSubtags(languageCode: 'yo'), 'Yoruba', 'Yorùbá');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'vi')),
+      'Vietnamese',
+      'Tiếng Việt');
+  static Language get welsh => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'cy')), 'Welsh', 'Cymraeg');
+  static Language get xhosa => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'xh')), 'Xhosa', 'isiXhosa');
+  static Language get yoruba => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'yo')), 'Yoruba', 'Yorùbá');
   static Language get yucatecMaya => Language(
-      Locale.fromSubtags(languageCode: 'yua'), 'Yucatec Maya', 'Maya t\'aan');
-  static Language get zulu =>
-      Language(Locale.fromSubtags(languageCode: 'zu'), 'Zulu', 'isiZulu');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'yua')),
+      'Yucatec Maya',
+      'Maya t\'aan');
+  static Language get zulu => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'zu')), 'Zulu', 'isiZulu');
 
   // TODO : exact native name needs to be completed
   // TODO : local to be double checked
   static Language get abkhazian => Language(
-      Locale.fromSubtags(languageCode: 'ab'), 'Abkhazian', 'Abkhazian');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ab')), 'Abkhazian', '');
   static Language get afar =>
-      Language(Locale.fromSubtags(languageCode: 'aa'), 'Afar', 'Afar');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'aa')), 'Afar', '');
   static Language get akan =>
-      Language(Locale.fromSubtags(languageCode: 'ak'), 'Akan', 'Akan');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'ak')), 'Akan', '');
   static Language get aragonese => Language(
-      Locale.fromSubtags(languageCode: 'an'), 'Aragonese', 'Aragonese');
-  static Language get avaric =>
-      Language(Locale.fromSubtags(languageCode: 'av'), 'Avaric', 'Avaric');
-  static Language get avestan =>
-      Language(Locale.fromSubtags(languageCode: 'ae'), 'Avestan', 'Avestan');
-  static Language get aymara =>
-      Language(Locale.fromSubtags(languageCode: 'ay'), 'Aymara', 'Aymara');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'an')), 'Aragonese', '');
+  static Language get avaric => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'av')), 'Avaric', '');
+  static Language get avestan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ae')), 'Avestan', '');
+  static Language get aymara => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ay')), 'Aymara', '');
   static Language get azerbaijani => Language(
-      Locale.fromSubtags(languageCode: 'az'), 'Azerbaijani', 'Azerbaijani');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'az')), 'Azerbaijani', '');
   static Language get belarusian => Language(
-      Locale.fromSubtags(languageCode: 'be'), 'Belarusian', 'Belarusian');
-  static Language get bengali =>
-      Language(Locale.fromSubtags(languageCode: 'bn'), 'Bengali', 'Bengali');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'be')), 'Belarusian', '');
+  static Language get bengali => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bn')), 'Bengali', '');
   static Language get bihariLanguages => Language(
-      Locale.fromSubtags(languageCode: 'bh'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bh')),
       'Bihari Languages',
-      'Bihari Languages');
-  static Language get bislama =>
-      Language(Locale.fromSubtags(languageCode: 'bi'), 'Bislama', 'Bislama');
-  static Language get bosnian =>
-      Language(Locale.fromSubtags(languageCode: 'bs'), 'Bosnian', 'Bosnian');
-  static Language get breton =>
-      Language(Locale.fromSubtags(languageCode: 'br'), 'Breton', 'Breton');
-  static Language get burmese =>
-      Language(Locale.fromSubtags(languageCode: 'my'), 'Burmese', 'Burmese');
+      '');
+  static Language get bislama => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bi')), 'Bislama', '');
+  static Language get bosnian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'bs')), 'Bosnian', '');
+  static Language get breton => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'br')), 'Breton', '');
+  static Language get burmese => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'my')), 'Burmese', '');
   static Language get centralKhmer => Language(
-      Locale.fromSubtags(languageCode: 'km'), 'Central Khmer', 'Central Khmer');
-  static Language get chamorro =>
-      Language(Locale.fromSubtags(languageCode: 'ch'), 'Chamorro', 'Chamorro');
-  static Language get chechen =>
-      Language(Locale.fromSubtags(languageCode: 'ce'), 'Chechen', 'Chechen');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'km')), 'Central Khmer', '');
+  static Language get chamorro => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ch')), 'Chamorro', '');
+  static Language get chechen => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ce')), 'Chechen', '');
   static Language get chewaNyanja => Language(
-      Locale.fromSubtags(languageCode: 'ny'),
-      'Chewa (Nyanja)',
-      'Chewa (Nyanja)');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ny')), 'Chewa (Nyanja)', '');
   static Language get churchSlavonic => Language(
-      Locale.fromSubtags(languageCode: 'cu'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'cu')),
       'Church Slavonic',
-      'Church Slavonic');
-  static Language get chuvash =>
-      Language(Locale.fromSubtags(languageCode: 'cv'), 'Chuvash', 'Chuvash');
-  static Language get cornish =>
-      Language(Locale.fromSubtags(languageCode: 'kw'), 'Cornish', 'Cornish');
-  static Language get corsican =>
-      Language(Locale.fromSubtags(languageCode: 'co'), 'Corsican', 'Corsican');
+      '');
+  static Language get chuvash => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'cv')), 'Chuvash', '');
+  static Language get cornish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kw')), 'Cornish', '');
+  static Language get corsican => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'co')), 'Corsican', '');
   static Language get cree =>
-      Language(Locale.fromSubtags(languageCode: 'cr'), 'Cree', 'Cree');
-  static Language get dhivehi =>
-      Language(Locale.fromSubtags(languageCode: 'dv'), 'Dhivehi', 'Dhivehi');
-  static Language get dzongkha =>
-      Language(Locale.fromSubtags(languageCode: 'dz'), 'Dzongkha', 'Dzongkha');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'cr')), 'Cree', '');
+  static Language get dhivehi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'dv')), 'Dhivehi', '');
+  static Language get dzongkha => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'dz')), 'Dzongkha', '');
   static Language get esperanto => Language(
-      Locale.fromSubtags(languageCode: 'eo'), 'Esperanto', 'Esperanto');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'eo')), 'Esperanto', '');
   static Language get ewe =>
-      Language(Locale.fromSubtags(languageCode: 'ee'), 'Ewe', 'Ewe');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'ee')), 'Ewe', '');
   static Language get fulah =>
-      Language(Locale.fromSubtags(languageCode: 'ff'), 'Fulah', 'Fulah');
-  static Language get gaelic =>
-      Language(Locale.fromSubtags(languageCode: 'gd'), 'Gaelic', 'Gaelic');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'ff')), 'Fulah', '');
+  static Language get gaelic => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'gd')), 'Gaelic', '');
   static Language get ganda =>
-      Language(Locale.fromSubtags(languageCode: 'lg'), 'Ganda', 'Ganda');
-  static Language get guarani =>
-      Language(Locale.fromSubtags(languageCode: 'gn'), 'Guarani', 'Guarani');
-  static Language get haitian =>
-      Language(Locale.fromSubtags(languageCode: 'ht'), 'Haitian', 'Haitian');
-  static Language get herero =>
-      Language(Locale.fromSubtags(languageCode: 'hz'), 'Herero', 'Herero');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'lg')), 'Ganda', '');
+  static Language get guarani => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'gn')), 'Guarani', '');
+  static Language get haitian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ht')), 'Haitian', '');
+  static Language get herero => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'hz')), 'Herero', '');
   static Language get hiriMotu => Language(
-      Locale.fromSubtags(languageCode: 'ho'), 'Hiri Motu', 'Hiri Motu');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ho')), 'Hiri Motu', '');
   static Language get ido =>
-      Language(Locale.fromSubtags(languageCode: 'io'), 'Ido', 'Ido');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'io')), 'Ido', '');
   static Language get interlingua => Language(
-      Locale.fromSubtags(languageCode: 'ia'), 'Interlingua', 'Interlingua');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ia')), 'Interlingua', '');
   static Language get interlingue => Language(
-      Locale.fromSubtags(languageCode: 'ie'), 'Interlingue', 'Interlingue');
-  static Language get inupiaq =>
-      Language(Locale.fromSubtags(languageCode: 'ik'), 'Inupiaq', 'Inupiaq');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ie')), 'Interlingue', '');
+  static Language get inupiaq => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ik')), 'Inupiaq', '');
   static Language get kalaallisut => Language(
-      Locale.fromSubtags(languageCode: 'kl'), 'Kalaallisut', 'Kalaallisut');
-  static Language get kanuri =>
-      Language(Locale.fromSubtags(languageCode: 'kr'), 'Kanuri', 'Kanuri');
-  static Language get kikuyu =>
-      Language(Locale.fromSubtags(languageCode: 'ki'), 'Kikuyu', 'Kikuyu');
-  static Language get kirghiz =>
-      Language(Locale.fromSubtags(languageCode: 'ky'), 'Kirghiz', 'Kirghiz');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kl')), 'Kalaallisut', '');
+  static Language get kanuri => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kr')), 'Kanuri', '');
+  static Language get kikuyu => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ki')), 'Kikuyu', '');
+  static Language get kirghiz => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ky')), 'Kirghiz', '');
   static Language get komi =>
-      Language(Locale.fromSubtags(languageCode: 'kv'), 'Komi', 'Komi');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'kv')), 'Komi', '');
   static Language get kongo =>
-      Language(Locale.fromSubtags(languageCode: 'kg'), 'Kongo', 'Kongo');
-  static Language get kuanyama =>
-      Language(Locale.fromSubtags(languageCode: 'kj'), 'Kuanyama', 'Kuanyama');
-  static Language get kurdish =>
-      Language(Locale.fromSubtags(languageCode: 'ku'), 'Kurdish', 'Kurdish');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'kg')), 'Kongo', '');
+  static Language get kuanyama => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'kj')), 'Kuanyama', '');
+  static Language get kurdish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ku')), 'Kurdish', '');
   static Language get latin =>
-      Language(Locale.fromSubtags(languageCode: 'la'), 'Latin', 'Latin');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'la')), 'Latin', '');
   static Language get limburgan => Language(
-      Locale.fromSubtags(languageCode: 'li'), 'Limburgan', 'Limburgan');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'li')), 'Limburgan', '');
   static Language get lubaKatanga => Language(
-      Locale.fromSubtags(languageCode: 'lu'), 'Luba-Katanga', 'Luba-Katanga');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lu')), 'Luba-Katanga', '');
   static Language get luxembourgish => Language(
-      Locale.fromSubtags(languageCode: 'lb'), 'Luxembourgish', 'Luxembourgish');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'lb')), 'Luxembourgish', '');
   static Language get malay =>
-      Language(Locale.fromSubtags(languageCode: 'ms'), 'Malay', 'Malay');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'ms')), 'Malay', '');
   static Language get manx =>
-      Language(Locale.fromSubtags(languageCode: 'gv'), 'Manx', 'Manx');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'gv')), 'Manx', '');
   static Language get marshallese => Language(
-      Locale.fromSubtags(languageCode: 'mh'), 'Marshallese', 'Marshallese');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mh')), 'Marshallese', '');
   static Language get mongolian => Language(
-      Locale.fromSubtags(languageCode: 'mn'), 'Mongolian', 'Mongolian');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'mn')), 'Mongolian', '');
   static Language get nauru =>
-      Language(Locale.fromSubtags(languageCode: 'na'), 'Nauru', 'Nauru');
-  static Language get navajo =>
-      Language(Locale.fromSubtags(languageCode: 'nv'), 'Navajo', 'Navajo');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'na')), 'Nauru', '');
+  static Language get navajo => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nv')), 'Navajo', '');
   static Language get ndebeleNorth => Language(
-      Locale.fromSubtags(languageCode: 'nd'),
-      'Ndebele, North',
-      'Ndebele, North');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nd')), 'Ndebele, North', '');
   static Language get ndebeleSouth => Language(
-      Locale.fromSubtags(languageCode: 'nr'),
-      'Ndebele, South',
-      'Ndebele, South');
-  static Language get ndonga =>
-      Language(Locale.fromSubtags(languageCode: 'ng'), 'Ndonga', 'Ndonga');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nr')), 'Ndebele, South', '');
+  static Language get ndonga => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ng')), 'Ndonga', '');
   static Language get northernSami => Language(
-      Locale.fromSubtags(languageCode: 'se'), 'Northern Sami', 'Northern Sami');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'se')), 'Northern Sami', '');
   static Language get norwegianNynorsk => Language(
-      Locale.fromSubtags(languageCode: 'nn'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'nn')),
       'Norwegian Nynorsk',
-      'Norwegian Nynorsk');
-  static Language get occitan =>
-      Language(Locale.fromSubtags(languageCode: 'oc'), 'Occitan', 'Occitan');
-  static Language get ojibwa =>
-      Language(Locale.fromSubtags(languageCode: 'oj'), 'Ojibwa', 'Ojibwa');
+      '');
+  static Language get occitan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'oc')), 'Occitan', '');
+  static Language get ojibwa => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'oj')), 'Ojibwa', '');
   static Language get oriya =>
-      Language(Locale.fromSubtags(languageCode: 'or'), 'Oriya', 'Oriya');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'or')), 'Oriya', '');
   static Language get oromo =>
-      Language(Locale.fromSubtags(languageCode: 'om'), 'Oromo', 'Oromo');
-  static Language get ossetian =>
-      Language(Locale.fromSubtags(languageCode: 'os'), 'Ossetian', 'Ossetian');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'om')), 'Oromo', '');
+  static Language get ossetian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'os')), 'Ossetian', '');
   static Language get pali =>
-      Language(Locale.fromSubtags(languageCode: 'pi'), 'Pali', 'Pali');
-  static Language get panjabi =>
-      Language(Locale.fromSubtags(languageCode: 'pa'), 'Panjabi', 'Panjabi');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'pi')), 'Pali', '');
+  static Language get panjabi => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pa')), 'Panjabi', '');
   static Language get portuguese => Language(
-      Locale.fromSubtags(languageCode: 'pt'), 'Portuguese', 'Portuguese');
-  static Language get pushto =>
-      Language(Locale.fromSubtags(languageCode: 'ps'), 'Pushto', 'Pushto');
-  static Language get quechua =>
-      Language(Locale.fromSubtags(languageCode: 'qu'), 'Quechua', 'Quechua');
-  static Language get romansh =>
-      Language(Locale.fromSubtags(languageCode: 'rm'), 'Romansh', 'Romansh');
-  static Language get samoan =>
-      Language(Locale.fromSubtags(languageCode: 'sm'), 'Samoan', 'Samoan');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'pt')), 'Portuguese', '');
+  static Language get pushto => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ps')), 'Pushto', '');
+  static Language get quechua => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'qu')), 'Quechua', '');
+  static Language get romansh => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'rm')), 'Romansh', '');
+  static Language get samoan => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sm')), 'Samoan', '');
   static Language get sango =>
-      Language(Locale.fromSubtags(languageCode: 'sg'), 'Sango', 'Sango');
-  static Language get sanskrit =>
-      Language(Locale.fromSubtags(languageCode: 'sa'), 'Sanskrit', 'Sanskrit');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'sg')), 'Sango', '');
+  static Language get sanskrit => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sa')), 'Sanskrit', '');
   static Language get sardinian => Language(
-      Locale.fromSubtags(languageCode: 'sc'), 'Sardinian', 'Sardinian');
-  static Language get serbian =>
-      Language(Locale.fromSubtags(languageCode: 'sr'), 'Serbian', 'Serbian');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sc')), 'Sardinian', '');
+  static Language get serbian => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sr')), 'Serbian', '');
   static Language get shona =>
-      Language(Locale.fromSubtags(languageCode: 'sn'), 'Shona', 'Shona');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'sn')), 'Shona', '');
   static Language get sichuanYi => Language(
-      Locale.fromSubtags(languageCode: 'ii'), 'Sichuan Yi', 'Sichuan Yi');
-  static Language get somali =>
-      Language(Locale.fromSubtags(languageCode: 'so'), 'Somali', 'Somali');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ii')), 'Sichuan Yi', '');
+  static Language get soso =>
+      // TODO check locale for soussou
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'sou')), 'Soso',
+          'Soussou');
+  static Language get somali => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'so')), 'Somali', '');
   static Language get sothoSouthern => Language(
-      Locale.fromSubtags(languageCode: 'st'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'st')),
       'Sotho, Southern',
-      'Sotho, Southern');
+      '');
   static Language get sundanese => Language(
-      Locale.fromSubtags(languageCode: 'su'), 'Sundanese', 'Sundanese');
-  static Language get swahili =>
-      Language(Locale.fromSubtags(languageCode: 'sw'), 'Swahili', 'Swahili');
+      LocaleIntl(Locale.fromSubtags(languageCode: 'su')), 'Sundanese', '');
+  static Language get swahili => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'sw')), 'Swahili', '');
   static Language get swati =>
-      Language(Locale.fromSubtags(languageCode: 'ss'), 'Swati', 'Swati');
-  static Language get tagalog =>
-      Language(Locale.fromSubtags(languageCode: 'tl'), 'Tagalog', 'Tagalog');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'ss')), 'Swati', '');
+  static Language get tagalog => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tl')), 'Tagalog', '');
   static Language get tajik =>
-      Language(Locale.fromSubtags(languageCode: 'tg'), 'Tajik', 'Tajik');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'tg')), 'Tajik', '');
   static Language get tatar =>
-      Language(Locale.fromSubtags(languageCode: 'tt'), 'Tatar', 'Tatar');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'tt')), 'Tatar', '');
   static Language get tongaTongaIslands => Language(
-      Locale.fromSubtags(languageCode: 'to'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'to')),
       'Tonga (Tonga Islands)',
-      'Tonga (Tonga Islands)');
-  static Language get tsonga =>
-      Language(Locale.fromSubtags(languageCode: 'ts'), 'Tsonga', 'Tsonga');
-  static Language get tswana =>
-      Language(Locale.fromSubtags(languageCode: 'tn'), 'Tswana', 'Tswana');
-  static Language get turkmen =>
-      Language(Locale.fromSubtags(languageCode: 'tk'), 'Turkmen', 'Turkmen');
+      '');
+  static Language get tsonga => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ts')), 'Tsonga', '');
+  static Language get tswana => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tn')), 'Tswana', '');
+  static Language get turkmen => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'tk')), 'Turkmen', '');
   static Language get twi =>
-      Language(Locale.fromSubtags(languageCode: 'tw'), 'Twi', 'Twi');
-  static Language get uighur =>
-      Language(Locale.fromSubtags(languageCode: 'ug'), 'Uighur', 'Uighur');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'tw')), 'Twi', '');
+  static Language get uighur => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'ug')), 'Uighur', '');
   static Language get uzbek =>
-      Language(Locale.fromSubtags(languageCode: 'uz'), 'Uzbek', 'Uzbek');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'uz')), 'Uzbek', '');
   static Language get venda =>
-      Language(Locale.fromSubtags(languageCode: 've'), 'Venda', 'Venda');
-  static Language get volapuk =>
-      Language(Locale.fromSubtags(languageCode: 'vo'), 'Volapük', 'Volapük');
-  static Language get walloon =>
-      Language(Locale.fromSubtags(languageCode: 'wa'), 'Walloon', 'Walloon');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 've')), 'Venda', '');
+  static Language get volapuk => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'vo')), 'Volapük', '');
+  static Language get walloon => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'wa')), 'Walloon', '');
   static Language get westernFrisian => Language(
-      Locale.fromSubtags(languageCode: 'fy'),
+      LocaleIntl(Locale.fromSubtags(languageCode: 'fy')),
       'Western Frisian',
-      'Western Frisian');
+      '');
   static Language get wolof =>
-      Language(Locale.fromSubtags(languageCode: 'wo'), 'Wolof', 'Wolof');
-  static Language get yiddish =>
-      Language(Locale.fromSubtags(languageCode: 'yi'), 'Yiddish', 'Yiddish');
-  static Language get zhuang =>
-      Language(Locale.fromSubtags(languageCode: 'za'), 'Zhuang', 'Zhuang');
+      Language(LocaleIntl(Locale.fromSubtags(languageCode: 'wo')), 'Wolof', '');
+  static Language get yiddish => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'yi')), 'Yiddish', 'Yiddish');
+  static Language get zhuang => Language(
+      LocaleIntl(Locale.fromSubtags(languageCode: 'za')), 'Zhuang', 'Zhuang');
 
   static List<Language> defaultLanguages = [
     Languages.abkhazian,
@@ -729,6 +838,7 @@ class Languages {
     Languages.slovak,
     Languages.slovenian,
     Languages.somali,
+    Languages.soso,
     Languages.sothoSouthern,
     Languages.spanish,
     Languages.sundanese,

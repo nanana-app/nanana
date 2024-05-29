@@ -5,6 +5,13 @@ A crowdsourcing app to bring out African lyrics transcriptions and translations.
 db content can be search on the web
 contributions must be done through the app (android,iOS,mac,windows)
 
+
+// edit du 29 Mai 2024
+Concernant les endpoints de transcription ce serait bien de séparer la création de l'en-tête de la transcription (song, artist, language, youtubeUrl) du corps (lyrics)
+On ne souhaite pt être pas mettre à jour les infos de l'en-tête et par contrer les lyrics seront bcp mises à jour, au fur et à mesure de la transcription.
+
+sauvegarde de la saisie des paroles automatiques
+
 ## user space
 
 User (

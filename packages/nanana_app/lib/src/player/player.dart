@@ -9,6 +9,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:nanana_app/src/player/player_common.dart';
 import 'package:rxdart/rxdart.dart';
 
+// TODO : mettre à la place de licone du son et de la vitesse << >>
+// et garder la vitesse de lecture mais la mettre tout à droite
+
 class PlayerView extends StatefulWidget {
   const PlayerView({Key? key}) : super(key: key);
 
