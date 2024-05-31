@@ -11,7 +11,7 @@ import 'package:re_editor/re_editor.dart';
 // TODO remove icons.save, saving should be automatic
 // saving should/could work offline
 
-// TODO ajouter le soussou dans les langues
+// https://youtu.be/ZNT9fmH8-Tk?si=h8borKfankfJcFnE
 
 //TODO : icone pour intent qui ouvre youtube (webview qui redirige)
 // TODO : un peu + d'espace entre le player et l'editeur

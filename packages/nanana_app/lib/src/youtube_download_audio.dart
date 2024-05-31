@@ -9,17 +9,17 @@ import 'package:provider/provider.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-class YoutubeDownloadVideoView extends StatefulWidget {
-  const YoutubeDownloadVideoView({super.key, required this.title});
+class YoutubeDownloadAudioView extends StatefulWidget {
+  const YoutubeDownloadAudioView({super.key, required this.title});
 
   final String title;
 
   @override
-  YoutubeDownloadVideoViewState createState() =>
-      YoutubeDownloadVideoViewState();
+  YoutubeDownloadAudioViewState createState() =>
+      YoutubeDownloadAudioViewState();
 }
 
-class YoutubeDownloadVideoViewState extends State<YoutubeDownloadVideoView> {
+class YoutubeDownloadAudioViewState extends State<YoutubeDownloadAudioView> {
   final textController = TextEditingController();
 
   @override
@@ -39,9 +39,9 @@ class YoutubeDownloadVideoViewState extends State<YoutubeDownloadVideoView> {
             ElevatedButton(
               child: const Text('Download'),
               onPressed: () async {
-                final top = Provider.of<TopProvider>(context, listen: false);
                 // Here you should validate the given input or else an error
                 // will be thrown.
+                final top = Provider.of<TopProvider>(context, listen: false);
                 final yt = YoutubeExplode();
                 final id = VideoId(textController.text.trim());
                 final video = await yt.videos.get(id);
@@ -65,20 +65,18 @@ class YoutubeDownloadVideoViewState extends State<YoutubeDownloadVideoView> {
                 // Get the streams manifest and the audio track.
                 final manifest = await yt.videos.streamsClient.getManifest(id);
 
-                final videoStream = manifest.muxed
-                    .bestQuality; // XXX consider choosing video quality in settings
+                final audio = manifest.audioOnly.withHighestBitrate();
                 // yt.videos.streamsClient.get(audio).pipe(streamConsumer)
                 // Build the directory.
-                final fileName =
-                    '${video.title}_${video.id}.${videoStream.container.name}'
-                        .replaceAll(r'\', '')
-                        .replaceAll('/', '')
-                        .replaceAll('*', '')
-                        .replaceAll('?', '')
-                        .replaceAll('"', '')
-                        .replaceAll('<', '')
-                        .replaceAll('>', '')
-                        .replaceAll('|', '');
+                final fileName = '${video.id}.${audio.container.name}'
+                    .replaceAll(r'\', '')
+                    .replaceAll('/', '')
+                    .replaceAll('*', '')
+                    .replaceAll('?', '')
+                    .replaceAll('"', '')
+                    .replaceAll('<', '')
+                    .replaceAll('>', '')
+                    .replaceAll('|', '');
                 final filePath = path.join(
                   top.songsFilesDir.uri.toFilePath(),
                   fileName,
@@ -102,25 +100,23 @@ class YoutubeDownloadVideoViewState extends State<YoutubeDownloadVideoView> {
                   see an example ii example/video_download.dart
                    */
 // Track the file download status.
-                final len = videoStream.size.totalBytes;
+                final len = audio.size.totalBytes;
                 var count = 0;
 
                 // Create the message and set the cursor position.
                 final msg =
-                    'Downloading ${video.title}.${videoStream.container.name}';
+                    'Downloading ${video.title}.${audio.container.name}';
                 stdout.writeln(msg);
 
                 // Listen for data received.
-                print(filePath);
-                await for (final data
-                    in yt.videos.streamsClient.get(videoStream)) {
+                await for (final data in yt.videos.streamsClient.get(audio)) {
                   // Keep track of the current downloaded data.
                   count += data.length;
 
                   // Calculate the current progress.
                   final progress = ((count / len) * 100).ceil();
 
-                  print(progress.toStringAsFixed(0));
+                  print(progress.toStringAsFixed(2));
 
                   // Write to file.
                   output.add(data);

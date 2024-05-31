@@ -16,6 +16,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  video_player: ^2.5.1
+  video_player_win: ^2.0.0
   youtube_explode_dart: ^2.2.1
   url_launcher: ^6.2.6
   path_provider: ^2.1.3

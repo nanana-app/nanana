@@ -16,6 +16,8 @@ class MyMaterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final top =
         Provider.of<TopProvider>(context, listen: false); // ? pass it to true
+    // init the folders for videos/recordings
+    top.createFolders();
 
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),

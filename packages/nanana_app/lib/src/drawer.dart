@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nanana_app/src/app/d_material_app.dart';
 import 'package:nanana_app/src/app/l10n.dart';
 import 'package:nanana_app/src/create_transcription.dart';
+import 'package:nanana_app/src/video_player.dart';
 import 'package:nanana_app/src/youtube_download.dart';
 import 'package:nanana_app/src/widgets/language_select.dart';
 import 'package:nanana_app/src/app/top_provider.dart';
@@ -109,7 +110,7 @@ class DrawerNanana extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            const YoutubeView(title: 'youtube'),
+                            const YoutubeDownloadVideoView(title: 'youtube'),
                       ),
                     );
                   }),
@@ -125,6 +126,19 @@ class DrawerNanana extends StatelessWidget {
                 ],
               ),
             ),
+            DrawerTopTileWidget(
+                const Icon(
+                  Icons.play_circle_outline,
+                ),
+                Text('video Player'), () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                        appBar: AppBar(),
+                        drawer: const DrawerNanana(),
+                        body: const VideoApp())),
+              );
+            }),
             DrawerTopTileWidget(
                 const Icon(
                   Icons.play_circle_outline,
