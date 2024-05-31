@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
-import 'package:languages_dart/export.dart';
+import 'package:languages_dart/languages_dart.dart';
 import 'package:nanana_app/src/models/lyrics.dart';
 
 class DatesNanana {

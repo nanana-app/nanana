@@ -3,7 +3,7 @@ import 'dart:convert' as convert;
 
 // Package imports:
 import 'package:collection/collection.dart';
-import 'package:languages_dart/export.dart';
+import 'package:languages_dart/languages_dart.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nanana_app/src/models/transcription.dart';
 import 'package:nanana_app/src/shared_prefs/endpoint_base.dart';

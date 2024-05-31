@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:languages_dart/export.dart';
-import 'package:language_picker/export.dart';
+import 'package:languages_dart/languages_dart.dart';
+import 'package:language_picker_native_tongue/language_picker_native_tongue.dart';
 
 import 'package:nanana_app/src/app/l10n.dart';
 import 'package:nanana_app/src/app/top_provider.dart';

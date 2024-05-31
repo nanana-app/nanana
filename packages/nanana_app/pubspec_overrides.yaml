@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: language_picker_native_tongue,languages_dart
+dependency_overrides:
+  language_picker_native_tongue:
+    path: ../language_picker_native_tongue
+  languages_dart:
+    path: ../languages_dart

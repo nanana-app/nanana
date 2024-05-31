@@ -461,13 +461,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
-  language_picker:
+  language_picker_native_tongue:
     dependency: "direct main"
     description:
       path: "../language_picker_native_tongue"
       relative: true
     source: path
-    version: "0.4.3"
+    version: "1.0.0"
   languages_dart:
     dependency: "direct main"
     description:

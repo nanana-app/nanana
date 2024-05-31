@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 //
-import 'package:languages_dart/export.dart';
+import 'package:languages_dart/languages_dart.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nanana_app/src/mobx/crud_stores/transcriptions.dart';
 import 'package:nanana_app/src/mobx/validators/abstract.dart';

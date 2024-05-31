@@ -35,10 +35,10 @@ dependencies:
   rxdart: ^0.27.7
 #
   #intl: ^0.18.1
-  languages_dart:
-    path: ../languages_dart
-  language_picker:
-    path: ../language_picker_native_tongue
+  languages_dart: ^1.0.0
+    #path: ../languages_dart
+  language_picker_native_tongue: ^1.0.0
+    #path: ../language_picker_native_tongue
   provider: ^6.1.2
   flutter_mobx: ^2.1.1
   mobx: ^2.3.3+2
