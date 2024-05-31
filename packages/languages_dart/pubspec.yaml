@@ -1,15 +1,14 @@
 name: languages_dart
 description: Handle languages and locales seamlessly across Dart & Flutter
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/nanana-app/nanana/tree/main/packages/languages_dart
 
 environment:
   sdk: ^3.3.3
 
 # Add regular dependencies here.
 dependencies:
-  intl: ^0.18.1 #^0.19.0
-  # path: ^1.8.0
+  intl: ^0.19.0 #^0.18.1
 
 dev_dependencies:
   lints: ^3.0.0
